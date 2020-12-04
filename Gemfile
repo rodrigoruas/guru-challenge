@@ -8,8 +8,12 @@ gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 4.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jwt'
+gem 'argon2'
+gem 'omniauth-auth0', '~> 2.2'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv-rails'
 end
 
 group :development do

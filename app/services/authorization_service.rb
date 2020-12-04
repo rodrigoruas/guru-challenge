@@ -8,6 +8,14 @@ class AuthorizationService
     verify_token
   end
 
+  def get_user
+    if @headers['Authorization'].present?
+      User.get_user(verify_token.first["email"])
+    else
+      nil
+    end
+  end
+
   private
 
   def http_token
@@ -17,11 +25,6 @@ class AuthorizationService
   end
 
   def verify_token
-    begin
-      JsonWebToken.verify(http_token)
-    rescue => e
-      # byebug
-    end
+    JsonWebToken.verify(http_token, ENV["CLIENT_ID"])
   end
-
 end
