@@ -1,11 +1,13 @@
 class PlaylistsController <  SecuredController
-  skip_before_action :authorize_request, only: [:index, :show]
+  skip_before_action :authorize_request, only: [:index]
   def index
+    current_user = @user
     playlists = Playlist.all
     render json: playlists
   end
 
   def show
+    current_user = @user
     playlist = Playlist.find(params[:id])
     render json: playlist
   rescue ActiveRecord::RecordNotFound
