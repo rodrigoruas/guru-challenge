@@ -1,6 +1,7 @@
 class SecuredController < ApplicationController
   before_action :authorize_request
   before_action :get_user_from_token
+  
 
   private
 

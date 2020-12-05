@@ -10,13 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_201324) do
+ActiveRecord::Schema.define(version: 2020_12_05_115943) do
 
   create_table "playlists", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "min_subscription", default: "Basic"
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "playlist_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["playlist_id"], name: "index_sections_on_playlist_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,4 +39,15 @@ ActiveRecord::Schema.define(version: 2020_12_04_201324) do
     t.string "subscription", default: "Basic"
   end
 
+  create_table "videos", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "section_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["section_id"], name: "index_videos_on_section_id"
+  end
+
+  add_foreign_key "sections", "playlists"
+  add_foreign_key "videos", "sections"
 end
