@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  
+  validates :subscription, inclusion: { in: %w(Basic Premium Professional) }
+
   def self.get_user(email)
     User.where(email: email)&.first
   end

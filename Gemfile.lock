@@ -71,6 +71,13 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
+    faker (2.15.1)
+      i18n (>= 1.6, < 2)
     faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
       ruby2_keywords
@@ -205,6 +212,8 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   dotenv-rails
+  factory_bot_rails
+  faker
   jwt
   listen (~> 3.2)
   omniauth-auth0 (~> 2.2)
