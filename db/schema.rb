@@ -12,18 +12,21 @@
 
 ActiveRecord::Schema.define(version: 2020_12_05_115943) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "playlists", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "min_subscription", default: "Basic"
+    t.integer "min_subscription", default: 0
   end
 
   create_table "sections", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "playlist_id", null: false
+    t.bigint "playlist_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["playlist_id"], name: "index_sections_on_playlist_id"
@@ -36,13 +39,13 @@ ActiveRecord::Schema.define(version: 2020_12_05_115943) do
     t.string "password_hash"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "subscription", default: "Basic"
+    t.integer "subscription", default: 0
   end
 
   create_table "videos", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "section_id", null: false
+    t.bigint "section_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["section_id"], name: "index_videos_on_section_id"

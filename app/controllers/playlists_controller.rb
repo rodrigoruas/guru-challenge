@@ -1,41 +1,26 @@
 class PlaylistsController <  SecuredController
   skip_before_action :authorize_request, only: [:index]
   def index
-    # current_user = @user
     playlists = Playlist.all
-    render json: playlists
+    render json: playlists, include: [sections: {include: :videos}]
   end
 
   def show
-    # current_user = @user
-    playlist = Playlist.find(params[:id])
-    if check_subscription?
-      render json: playlist
+    @playlist = Playlist.find(params[:id])
+    if @user.subscription >= @playlist.min_subscription
+      render json: @playlist, include: [sections: {include: :videos}]
     else
       render json: { errors: ['Not Authorized'] }, status: :unauthorized
     end
     rescue ActiveRecord::RecordNotFound
-      head :not_found
-  end
-
-  def create
-    playlist = Playlist.create!(playlist_params)
-    render json: playlist, status: :created
-  end
-
-  def destroy
-    playlist = Playlist.find(params[:id])
-    playlist.delete
-    head :no_content
+      render json: { errors: ['Playlist does not exist'] }, status: :not_found
   end
 
   private
-
-  def check_subscription?
-    @user.subscription == playlist.min_subscription
-  end
 
   def playlist_params
     params.permit(:name, :description)
   end
 end
+
+
