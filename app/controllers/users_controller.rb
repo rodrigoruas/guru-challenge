@@ -1,12 +1,6 @@
 class UsersController < SecuredController
-  def create
-  end
-
-  def update
-  end
-
   def update_subscription
-    if @user.update(subscription: params[:subscription])
+    if @user.update(subscription: params[:subscription].to_i)
       render json: {
         user: @user,
         status: "updated"

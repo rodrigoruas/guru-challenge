@@ -22,7 +22,6 @@ class JsonWebToken
 
     response = http.request(request)
     token = JSON.parse(response.body)["id_token"]
-    byebug
     user = self.verify(token, ENV["API_CLIENT_ID"])
     user ? {token: token, user: user} : nil
   end
