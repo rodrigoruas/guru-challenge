@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'login', to: redirect("#{ENV["API_DOMAIN"]}authorize?response_type=code&client_id=#{ENV["API_CLIENT_ID"]}&redirect_uri=#{ENV["API_CALLBACK_URL"]}&scope=openid%20profile%20email&state=YOUR_STATE_VALUE")
   
+  post 'subscriptions', to: "users#update_subscription"
   
  
   # get 'auth/auth0/callback' => 'auth0#callback'

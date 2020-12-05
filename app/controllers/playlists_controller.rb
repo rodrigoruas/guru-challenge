@@ -10,8 +10,8 @@ class PlaylistsController <  SecuredController
     current_user = @user
     playlist = Playlist.find(params[:id])
     render json: playlist
-  rescue ActiveRecord::RecordNotFound
-    head :not_found
+    rescue ActiveRecord::RecordNotFound
+      head :not_found
   end
 
   def create

@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   def create
-    # get authtoken from params [:code]
     decoded_token = JsonWebToken.get_token(params[:code])
     email = decoded_token[:user].first["email"]
     user = User.get_user(email)
@@ -18,7 +17,6 @@ class SessionsController < ApplicationController
   end
 
   protected
-
   def auth_hash
     request.env['omniauth.auth']
   end
